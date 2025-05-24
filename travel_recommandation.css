@@ -1,0 +1,45 @@
+h1 {
+    width: 20px;
+    font-size: 80px;
+    color: white
+}
+#line {
+    text-align: center;
+    font-style: oblique;
+    color: yellow;
+    font-size: 200%;
+    font-weight: bolder;
+}
+
+
+
+#p {
+    font-size: 120%;
+    color: white;
+}
+
+
+
+#nav_center {
+    text-align: center;
+    width: 75%;
+    padding: 25%;
+}
+
+.Barre {
+    font-size: 30%
+    font-weight: bold;
+    text-decoration: None;
+    color: white;
+}
+
+.box {
+    box-shadow: 2px 2px 3px black;
+    background-color: black;
+    border-width: 1px;
+    border-radius: 8px;
+    color: white;
+}
+body {
+    background: url("the-caucasus.jpg");
+}

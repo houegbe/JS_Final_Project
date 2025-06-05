@@ -1,0 +1,91 @@
+body {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    display: block;
+    margin: 0; /* Remove default margin */
+    height: 100vh; /* Set height to 100% of the viewport height */
+    width: 100vw; /* Set width to 100% of the viewport width */
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+}
+/* NAV BAR */
+.container {
+    display: inline;
+    margin: 0 auto;
+}
+
+.container h1{
+    display: inline;
+    font: 2em bolder;
+    font-style: italic;
+    color: yellow;
+    background-color: rgba(8, 2, 2, 0.7);
+}
+.container nav{
+    background-color: #f0f0f0;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    height: 60px;
+}
+.container nav ul li {
+    list-style: none;
+    text-decoration: underline;
+    display: inline;
+    font: bold;
+    margin-right: 10px;
+}
+
+#search {
+    display: inline;
+}
+
+#search input, #search button{
+    border-radius: 8%;
+    box-shadow: 2% 3% 3% 2%;
+    font-family: Arial, Helvetica, sans-serif;
+    letter-spacing: 2px;
+}
+
+.container nav ul li a {
+    text-decoration: none;
+}
+
+/* HOME LAYOUT*/
+.content {
+    position: relative;
+    background-image: url('the-caucasus.jpg');
+    background-repeat: no-repeat;
+    width: 100%;
+    background-size: cover;
+    background-position: center;
+    color: white;
+    
+}
+
+.wrapper {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+
+
+.wrapper h1{
+    font: larger, bolder;
+    border: solid 2px yellow;
+}
+
+.wrapper p{
+    font-weight: bold;
+    font-size: medium;
+    border: solid 2px yellow;
+}
+
+.wrapper button{
+    border-radius: 20%;
+    box-shadow: 2% 3%;
+    background-color: blue;
+    font-weight: bold;
+}

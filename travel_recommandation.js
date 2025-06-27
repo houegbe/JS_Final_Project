@@ -52,7 +52,7 @@ document.getElementById('search_form').addEventListener('submit', function(event
                             <p><strong>City Name:</strong> ${item.name}</p>
                             <p><strong>Description:</strong> ${item.description}</p>
                             <p><strong>Overview:</strong></p>
-                            <img src="${item.imageUrl}" width="85%" />
+                            <img src="${item.imageUrl}" width="85%" /> <hr/>
                         </div>`;
                 });
             } else if (cityCategory === 'countries') {

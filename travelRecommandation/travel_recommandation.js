@@ -1,76 +1,83 @@
 const searchbtn = document.querySelector('#searchbtn');
 const resetbtn = document.getElementById('resetbtn');
+const result_divs = document.getElementById('showResults');
 
-//Retrieves the value the user typed in with first letter uppercase to match json file
-let city = document.getElementById('srch').value.toLowerCase(); console.log(city);
-city = 'temples';
-
-// Writing a function to prevent the default behavior of the submit event
-function prevent_default(event) {
-    event.preventDefault();
-}
-
-//avoid the actual submission
-searchbtn.addEventListener('submit', prevent_default);
-
-
-//function to treat the user input before displaying the results
+// Function to determine category from user input
 function string_processor(ville) {
-    if (ville.startsWith('cou')) {
-        ville = 'countries'; 
-        return true
-    }
-    else if(ville.startsWith('tem')) {
-        ville = 'temples';
-        return true
-    }
-    else if(ville.startsWith('bea')) {
-        ville = 'beaches'; 
-        return true
-    }
-    else {
-        return false
-    }
+    ville = ville.toLowerCase();
+    if (ville.includes('countr')) return 'countries';
+    if (ville.includes('temple')) return 'temples';
+    if (ville.includes('beach')) return 'beaches';
+    return null;
 }
 
-//fetching results from parsed json
-fetch('travel_recommandation_api.json')
-    .then(response => response.json())
-    .then(data => {
-        console.log(data);
-        console.log(typeof(data));
-        //name of the categories of searches in json file
-        const list_villes = Object.keys(data);
-        console.log(list_villes);
-        data_list = Object.entries(data); console.log('the list: ');console.log(data_list); console.log(typeof(data_list[1]));
-        let found = string_processor(city); console.log(found);
-        let html;
-        
-        //Check if the city value is in the data promise and build the html else return a default string
-        if (found) {    
-            let i = 0;
-            for (let i; i < 3; i++) {
-                let obj = data[city];
-                console.log('log of obj:'); console.log(typeof(obj)); 
-                if (city == list_villes[i] && i < 3) {
-                    html = `<h2>Country Name: ${obj.name}</h2>`
-                    for (i = 0; i < obj.cities.lenght; i++) {
-                        html += `<h3>City Name: ${obj.cities.name}<h3/>
-                        <img src=${obj.cities.imageUrl}>
-                        <p>Recommandation: ${obj.cities.description}`; console.log('var html')
-                    }
-                    results_div.innerHTML = html
-                    break;
-                }
-                else {
-                    i += 1
-                }
+
+function clearInputs() {
+    result_divs.innerHTML = '';
+}
+
+document.getElementById('search_form').addEventListener('submit', function(event) {
+    event.preventDefault();
+    
+    let inputVal = document.getElementById('srch').value.trim();
+    let cityCategory = string_processor(inputVal);
+    console.log(cityCategory);
+
+    if (!cityCategory) {
+        result_divs.innerHTML = `<p>No results found for your input.</p>`;
+        return;
+    }
+
+    fetch('travel_recommandation_api.json')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
             }
-            if (!found){
-                html = `Sorry, not available yet, try to contact us`;
-                results_div.innerHTML = html;
+            return response.json();
+        })
+        .then(data => {
+            const obj = data[cityCategory];
+            
+            if (!obj || obj.length === 0) {
+                result_divs.innerHTML = `<p>No results found in the category "${cityCategory}".</p>`;
+                return;
             }
             
-            
-        }
-    })
+            let html = `<h2>Category: ${cityCategory}</h2>`;
+
+            if (cityCategory === 'temples' || cityCategory === 'beaches') {
+                obj.forEach(item => {
+                    html += `
+                        <div style="margin-bottom: 20px;">
+                            <p><strong>City Name:</strong> ${item.name}</p>
+                            <p><strong>Description:</strong> ${item.description}</p>
+                            <p><strong>Overview:</strong></p>
+                            <img src="${item.imageUrl}" width="85%" />
+                        </div>`;
+                });
+            } else if (cityCategory === 'countries') {
+                obj.forEach(country => {
+                    country.cities.forEach(city => {
+                        html += `
+                            <div style="height: 500px; width: 90%; margin: 6%;">
+                                <p><strong>City Name:</strong> ${city.name}</p>
+                                <p><strong>Description:</strong> ${city.description}</p>
+                                <p><strong>Overview:</strong></p>
+                                <img src="${city.imageUrl}" width="40%" />
+                            </div>`;
+                    });
+                });
+            }
+
+            result_divs.innerHTML = html;
+        })
+        .catch(err => {
+            result_divs.innerHTML = `<p>Error fetching data.</p>`;
+            console.error(err);
+        });
+});
+
+resetbtn.addEventListener('click', () => {
+    document.getElementById('srch').value = '';
+    clearInputs();
+});

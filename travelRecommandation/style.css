@@ -1,10 +1,14 @@
 body {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
-    display: block;
+    
     margin: 0; /* Remove default margin */
-    height: 100vh; /* Set height to 100% of the viewport height */
-    width: 100vw; /* Set width to 100% of the viewport width */
-    overflow-x: hidden; /* Prevent horizontal scrolling */
+    height: 100%; /* Set height to 100% of the viewport height */
+    width: 100%; /* Set width to 100% of the viewport width */
+    /*overflow-x: hidden;  Prevent horizontal scrolling */
+    background-image: url(yu-kato-824OwkP7sgk-unsplash.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
 }
 /* NAV BAR */
 .container {
@@ -55,7 +59,6 @@ body {
 /* HOME LAYOUT*/
 .content {
     position: relative;
-    background-image: url('the-caucasus.jpg');
     background-repeat: no-repeat;
     width: 100%;
     background-size: cover;
@@ -88,4 +91,24 @@ body {
     box-shadow: 2% 3%;
     background-color: blue;
     font-weight: bold;
+}
+
+#showResults {
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: column;
+    flex-wrap: wrap;
+    color: white;
+    font-size: 1.2em;
+    font-weight: bolder;
+}
+
+button:hover {
+    background-color: rgb(67, 245, 67);
+}
+
+button:active {
+    background-color: rgb(83, 83, 238);
 }

@@ -5,9 +5,9 @@ const result_divs = document.getElementById('showResults');
 // Function to determine category from user input
 function string_processor(ville) {
     ville = ville.toLowerCase();
-    if (ville.includes('countr')) return 'countries';
-    if (ville.includes('temple')) return 'temples';
-    if (ville.includes('beach')) return 'beaches';
+    if (ville.startsWith('cou')) return 'countries';
+    if (ville.startsWith('tem')) return 'temples';
+    if (ville.startsWith('bea')) return 'beaches';
     return null;
 }
 
